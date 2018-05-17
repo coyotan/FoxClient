@@ -1,6 +1,7 @@
 package FoxClient
 
 import (
+	"./utils"
 	"flag"
 	"strings"
 	"github.com/bwmarrin/discordgo"
