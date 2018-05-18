@@ -13,7 +13,7 @@ var (
 
 func NewLog(logpath string) {
 
-  file, err := os.Crete(logpath)
+  file, err := os.Create(logpath)
 
   if err != nil {
       panic(err)
