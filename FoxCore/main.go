@@ -30,7 +30,7 @@ var (
 	Token string
 	Mode string
 	LogPath string
-	//notifiers []WatchDog
+	notifiers []WatchDog
 
 	fc FoxClient
 	
