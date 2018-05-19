@@ -1,0 +1,19 @@
+{
+  "Client": {
+    "Token": "",
+    "Mode": "cli"
+  },
+  "WatchDogs": [
+    {
+      "Name": "Example Test",
+      "Guild": "412754940885467146",
+      "Channel": "412755378732793868",
+      "User": "228355771526676480",
+      "Role": "Moderator",
+      "Keyword": "Example",
+
+      "Priority" : "1",
+      "color": "gocui.ColorBlue"
+    }
+  ]
+}

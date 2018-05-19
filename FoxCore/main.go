@@ -1,9 +1,7 @@
 package FoxCore
 
 import (
-	"../utils"
-
-	"flag"
+	"github.com/TheBoxFox/FoxClient/utils"
 	"strings"
 	"github.com/bwmarrin/discordgo"
 	"fmt"
@@ -13,24 +11,12 @@ import (
 type FoxClient struct {
 	dg *discordgo.Session
 
+	Core utils.Conf
 }
 
-type WatchDog struct {
-	channel *discordgo.Channel //Watch for messages in a specific channel
-	guild *discordgo.Guild //Watch all content from a specific server
-	user *discordgo.User //Watch for all messages from a specific user
-	role *discordgo.GuildRole //Watch for messages from a specific role
-	keyword string //watch for any messages containing a specific keyword
-
-	color string //Color making for watched events
-	priority string //Priority control for watched events
-}
 
 var (
-	Token string
-	Mode string
 	LogPath string
-	notifiers []WatchDog
 
 	fc FoxClient
 	
@@ -40,40 +26,40 @@ var (
 
 
 func init() {
-	flag.StringVar(&Mode,"m","bot","Used to set the login mode. Options are CLI or bot, default is bot")
-	flag.StringVar(&Token,"t","","Used to define the Discord auth token.")
-	flag.Parse()
-
 	utils.NewLog(LogPath)
 	utils.Log.Println("PROGRAM INIT STARTED %s",version)
-	
-	if strings.ToLower(Mode) == "bot" {
-		utils.Log.Println("Authenticating with a bot token")
-		Token = "bot " + Token
 
-		dg, err := discordgo.New(Token)//Create Discord Session as bot
+
+	if strings.ToLower(fc.Core.Client.Mode) == "cli" {
+		/*dg, err := discordgo.New(fc.Core.Client.Token)
 		fc.dg = dg
 
 		if err != nil {
+			utils.Log.Println("Error Authenticating with Discord as client")
 			ErrFunc(err)
-		}
-
-		runBot()
-
-	} else if strings.ToLower(Mode) == "cli" {
-		utils.Log.Println("Authenticating with a client token")
-
-		dg, err := discordgo.New(Token) //Create Discord Session as client
-		fc.dg = dg
-
-		if err != nil {
-			ErrFunc(err)
+			os.Exit(1)
 		}
 
 		runCli()
+*/
+		for i:=0; i > len(fc.Core.Watchman.Notif); i++ {
+			fmt.Println(fc.Core.Watchman.Notif[i].Name)
+		}
+	} else if strings.ToLower(fc.Core.Client.Mode) == "bot" {
 
+		dg, err := discordgo.New("bot "+fc.Core.Client.Token)
+		fc.dg = dg
+
+		if err != nil {
+			utils.Log.Println("Error Authenticating with Discord as bot")
+			ErrFunc(err)
+			os.Exit(1)
+		}
+
+		runBot()
 	} else {
-		utils.Log.Panic("ERROR: UNKOWN FLAG, PLEASE SEE DOCUMENTATION")
+		utils.Log.Panic("ERROR: UNKNOWN VALUE, PLEASE SEE DOCUMENTATION")
+		utils.Log.Println("Invalid authentication mode: "+fc.Core.Client.Mode)
 		fmt.Println("Please check the logs for more information. Ensure that you are using the flags properly")
 		os.Exit(1)
 	}
