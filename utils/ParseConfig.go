@@ -51,6 +51,6 @@ func Parse(filename string) Conf {
 	var client Conf
 
 	json.Unmarshal(byteVal,&client)
-	Log.Println(client)
+
 	return client
 }
