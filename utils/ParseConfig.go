@@ -31,7 +31,7 @@ type core struct {
 
 type Conf struct {
 	Client core
-	Watchman WatchDog
+	Watchmen WatchDogs
 }
 
 
