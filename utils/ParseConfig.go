@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 )
 
-type WatchDogCell struct {
+type WatchDogs struct {
 	Name string `json:"Name"`
 	Channel *discordgo.Channel `json:"Channel"`//Watch for messages in a specific channel
 	guild *discordgo.Guild  `json:"Guid"`//Watch all content from a specific server
@@ -21,7 +21,7 @@ type WatchDogCell struct {
 }
 
 type WatchDog struct {
-	Notif []WatchDogCell `json:"WatchDogs"`
+	Notif []WatchDogs `json:"WatchDogs"`
 }
 
 type core struct {
@@ -33,6 +33,7 @@ type Conf struct {
 	Client core
 	Watchman WatchDog
 }
+
 
 func parse(name string) Conf {
 

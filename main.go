@@ -1,7 +1,7 @@
-package FoxClient
+package main
 
 import (
-	"github.com/TheBoxFox/FoxClient/utils"
+	"./utils"
 	"strings"
 	"github.com/bwmarrin/discordgo"
 	"fmt"
@@ -16,7 +16,7 @@ type FoxClient struct {
 
 
 var (
-	LogPath string
+	LogPath = "./connection.log"
 
 	fc FoxClient
 	
@@ -26,10 +26,12 @@ var (
 
 
 func init() {
+	
+
 	utils.NewLog(LogPath)
-	utils.Log.Println("PROGRAM INIT STARTED %s",version)
+	utils.Log.Println("PROGRAM INIT STARTED ",version)
 
-
+	utils.Log.Println(fc.Core.Client.Mode)
 	if strings.ToLower(fc.Core.Client.Mode) == "cli" {
 		dg, err := discordgo.New(fc.Core.Client.Token)
 		fc.dg = dg
@@ -64,6 +66,7 @@ func init() {
 		os.Exit(1)
 	}
 }
+func main () {}
 
 func runCli() {
 	utils.Log.Println("RunCli Start")
