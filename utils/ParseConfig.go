@@ -21,7 +21,7 @@ type WatchDogs struct {
 }
 
 //type WatchDog struct {
-//	Notif []WatchDogs `json:"WatchDogs"`
+	//Notif []WatchDogs `json:"WatchDogs"`
 //}
 
 type core struct {
@@ -31,7 +31,7 @@ type core struct {
 
 type Conf struct {
 	Client core
-	WatchDog []WatchDogs
+	WatchDogs []WatchDogs `json:"WatchDogs"`
 }
 
 
