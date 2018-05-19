@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./utils"
+	"github.com/TheBoxFox/FoxClient/utils"
 	"strings"
 	"github.com/bwmarrin/discordgo"
 	"fmt"
@@ -26,7 +26,7 @@ var (
 
 
 func init() {
-	
+	fc.Core = utils.Parse("./config.json")
 
 	utils.NewLog(LogPath)
 	utils.Log.Println("PROGRAM INIT STARTED ",version)

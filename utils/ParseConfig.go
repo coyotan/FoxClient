@@ -35,9 +35,9 @@ type Conf struct {
 }
 
 
-func parse(name string) Conf {
+func Parse(filename string) Conf {
 
-	file, err := os.Open(name)
+	file, err := os.Open(filename)
 
 	if err != nil {
 		fmt.Println("There was a critical error opening the json.")
