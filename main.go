@@ -1,4 +1,4 @@
-package FoxCore
+package FoxClient
 
 import (
 	"github.com/TheBoxFox/FoxClient/utils"
@@ -31,7 +31,7 @@ func init() {
 
 
 	if strings.ToLower(fc.Core.Client.Mode) == "cli" {
-		/*dg, err := discordgo.New(fc.Core.Client.Token)
+		dg, err := discordgo.New(fc.Core.Client.Token)
 		fc.dg = dg
 
 		if err != nil {
@@ -41,7 +41,7 @@ func init() {
 		}
 
 		runCli()
-*/
+
 		for i:=0; i > len(fc.Core.Watchman.Notif); i++ {
 			fmt.Println(fc.Core.Watchman.Notif[i].Name)
 		}

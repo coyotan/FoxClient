@@ -10,7 +10,7 @@ var (
 func guiInit() {
 	g, err := gocui.NewGui(gocui.OutputNormal)
 	if err != nil {
-		ErrFunc(err)
+		panic(err)
 	}
 	defer g.Close()
 
