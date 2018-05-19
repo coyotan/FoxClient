@@ -42,11 +42,10 @@ func init() {
 			os.Exit(1)
 		}
 
-		runCli()
+		//runCli()
 
-		for i:=0; i > len(fc.Core.Watchman.Notif); i++ {
-			fmt.Println(fc.Core.Watchman.Notif[i].Name)
-		}
+			utils.Log.Println(fc.Core.Watchman.Notif)
+
 	} else if strings.ToLower(fc.Core.Client.Mode) == "bot" {
 
 		dg, err := discordgo.New("bot "+fc.Core.Client.Token)
