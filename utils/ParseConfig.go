@@ -20,9 +20,6 @@ type WatchDogs struct {
 	Priority string `json:"Priority"`//Priority control for watched events
 }
 
-//type WatchDog struct {
-	//Notif []WatchDogs `json:"WatchDogs"`
-//}
 
 type core struct {
 	Token string `json:"Token"`

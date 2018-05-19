@@ -44,8 +44,6 @@ func init() {
 
 		//runCli()
 
-			utils.Log.Println(fc.Core.WatchDog)
-
 
 	} else if strings.ToLower(fc.Core.Client.Mode) == "bot" {
 
