@@ -11,6 +11,8 @@ import (
 type FoxClient struct {
 	dg *discordgo.Session
 
+	local *discordgo.Ready
+
 	Core utils.Conf
 }
 
@@ -31,7 +33,13 @@ func init() {
 	utils.NewLog(LogPath)
 	utils.Log.Println("PROGRAM INIT STARTED ",version)
 
-	utils.Log.Println(fc.Core.Client.Mode)
+	utils.Log.Println(fc.Core.Client.Mode,"mode selected by json configuration")
+	//If there is no token supplied, error so that the system won't attempt to authenticate.
+	if fc.Core.Client.Token == "" {
+		utils.Log.Panic("No token supplied, Discord authentication will fail")
+		os.Exit(1)
+	}
+
 	if strings.ToLower(fc.Core.Client.Mode) == "cli" {
 		dg, err := discordgo.New(fc.Core.Client.Token)
 		fc.dg = dg
@@ -42,7 +50,7 @@ func init() {
 			os.Exit(1)
 		}
 
-		//runCli()
+		runCli()
 
 
 	} else if strings.ToLower(fc.Core.Client.Mode) == "bot" {
@@ -86,5 +94,6 @@ func ErrFunc(err error) {
 //Create basic handlers to start the bot
 
 func Ready(s *discordgo.Session, r *discordgo.Ready) {
-	utils.Log.Println("Discord Ready Message Recieved. Username: %s User ID: %s",r.User.Username, r.User.ID)
+	utils.Log.Println("Discord Ready Message Recieved. Username:",r.User.Username," User ID:", r.User.ID)
+	fc.local = r
 }
