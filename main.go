@@ -45,23 +45,39 @@ func init() {
 		fc.dg = dg
 
 		if err != nil {
-			utils.Log.Println("Error Authenticating with Discord as client")
+			utils.Log.Println("Error authenticating with Discord as client")
 			ErrFunc(err)
-			os.Exit(1)
+			os.Exit(2)
 		}
 
+		err = fc.dg.Open()
+		
+		if err != nil {
+			utils.Log.Println("Error opening new discord session.")
+			ErrFunc(err)
+			os.Exit(3)
+		}
+		
 		runCli()
 
 
 	} else if strings.ToLower(fc.Core.Client.Mode) == "bot" {
 
-		dg, err := discordgo.New("bot "+fc.Core.Client.Token)
+		dg, err := discordgo.New("Bot "+fc.Core.Client.Token)
 		fc.dg = dg
 
 		if err != nil {
-			utils.Log.Println("Error Authenticating with Discord as bot")
+			utils.Log.Println("Error authenticating with Discord as bot")
 			ErrFunc(err)
 			os.Exit(1)
+		}
+		
+		err = fc.dg.Open()
+		
+		if err != nil {
+			utils.Log.Println("Error opening new Discord bot session. Are you sure you put in the correct token?")
+			ErrFunc(err)
+			os.Exit(3)
 		}
 
 		runBot()
@@ -75,7 +91,7 @@ func init() {
 func main () {}
 
 func runCli() {
-	utils.Log.Println("RunCli Start")
+	utils.Log.Println("Launching Client in CLI mode.")
 
 	fc.dg.AddHandler(Ready)
 }
@@ -83,11 +99,11 @@ func runCli() {
 
 
 func runBot() {
-	utils.Log.Println("RunBot Start")
+	utils.Log.Println("Launching Client in Bot mode.")
 }
 
 func ErrFunc(err error) {
-	utils.Log.Println("Unexpected error occured, please see error dump below.")
+	utils.Log.Println("BEGIN ERROR DUMP")
 	utils.Log.Panic(err)
 }
 
@@ -97,3 +113,10 @@ func Ready(s *discordgo.Session, r *discordgo.Ready) {
 	utils.Log.Println("Discord Ready Message Recieved. Username:",r.User.Username," User ID:", r.User.ID)
 	fc.local = r
 }
+
+/*
+Error numbers are as follows
+1: Configuration error
+2: Discord authentication error
+3: Discord session based error
+*/
